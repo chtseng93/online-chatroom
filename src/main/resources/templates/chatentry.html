@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ChatRoomEntry</title>
+    <link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Inter&family=Nunito:wght@500&display=swap">
+	<link rel="stylesheet" th:href="@{/css/chatentry.css}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+  <body>
+   <img id="backgroundimg"  th:src="@{/img/background.png}">
+   <!--<img id="backgroundimg"  th:src="@{/img/connect.jpg}">-->
+	<div class="login-page">
+		<div id="login-form">
+			<div class="head">
+				<h1 class="title"></h1>
+			</div>
+			<div class="details">
+				<form th:action="@{/chat/index}" method="post" th:object="${user}">
+					<div class="user">
+						<input type="text" name="userName" placeholder="Username">
+					</div>
+					<div class="radio_container">
+					<input type="radio" name="gender" value="male" id="male" checked>
+        				<label for="male">male</label>
+        			<input type="radio" name="gender" id="female" value="female">
+        				<label for="female">female</label>
+					</div>
+					<div class="submit">
+						<input type="submit" value="Log-In">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script th:src="@{/js/chatentry.js}"></script>
+</body>
+</html>
