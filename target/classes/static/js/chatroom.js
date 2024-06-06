@@ -75,7 +75,8 @@ function login(userName) {
 	genUid = crypto.randomUUID();
 	uid = genUid.replaceAll("-", "");
 	console.log("GEN UUID:"+uid);
-    socket = new WebSocket('ws://localhost:8080/gs-guide-websocket')
+//    socket = new WebSocket('ws://localhost:8080/gs-guide-websocket')
+    socket = new WebSocket('ws://localhost:8080/chatroom-websocket')
 //	let socket = new SockJS('ws://localhost:8080/gs-guide-websocket')
     stompClient = Stomp.over(socket);
     stompClient.connect({user:userName,uid:uid, gender:gender}, function () {

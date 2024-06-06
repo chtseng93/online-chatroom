@@ -14,7 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.util.HtmlUtils;
+
+
 
 import com.example.onlinechatroom.config.ContactEntity;
 import com.example.onlinechatroom.config.WebSocketSessions;
@@ -22,8 +23,10 @@ import com.example.onlinechatroom.entity.ChatMessageEntity;
 import com.example.onlinechatroom.model.UserReq;
 import com.example.onlinechatroom.service.ChatMessageService;
 
+import lombok.extern.slf4j.Slf4j;
 
 
+@Slf4j
 @Controller
 public class ChatMessageController {
 	
@@ -33,20 +36,13 @@ public class ChatMessageController {
 	@Autowired
     private WebSocketSessions sessions;
 	
-//	@MessageMapping("/hello")
-//	@SendTo("/topic/greetings")
-//	public Greeting greeting(HelloMessage message) throws Exception {
-//	    System.out.println( message);
-//	    return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!");
-//	}
-	
-	
+		
 	@MessageMapping("/message")
 	@SendTo("/topic/public")
 	public ChatMessageEntity message(ChatMessageEntity sendMessage) throws Exception {
 	    System.out.println(sendMessage);
 	    sessions.getAllUsers().forEach(name -> {
-		    System.out.println("message: "+name);
+		    log.info("message: "+name);
 		});
 	    ChatMessageEntity returnMessageEntity = new ChatMessageEntity(); 
 	    returnMessageEntity.setFromName(sendMessage.getFromName());
@@ -61,8 +57,8 @@ public class ChatMessageController {
 	@MessageMapping("/announce")
 	@SendTo("/topic/alert")
 	public ChatMessageEntity announce(ChatMessageEntity sendMessageEntity) throws Exception {
-		System.out.println("==============>Before.../announce");
-	    System.out.println(sendMessageEntity);
+		log.info("==============>Before.../announce");
+		log.info(sendMessageEntity!=null?sendMessageEntity.toString():"");
 	    ChatMessageEntity returnMessageEntity = new ChatMessageEntity(); 
 	    returnMessageEntity.setFromName(sendMessageEntity.getFromName());
 	    returnMessageEntity.setFromId(sendMessageEntity.getFromName());
@@ -74,14 +70,14 @@ public class ChatMessageController {
 	@MessageMapping("/connect")
 	@SendTo("/topic/crcontact")
 	public List<ContactEntity> connectWs(ChatMessageEntity messageEntity) throws Exception {
-		System.out.println("==============>/topic/crcontact");
+		log.info("==============>/topic/crcontact");
 		return chatMessageService.getAllContact();
 	}
 	
 	@MessageMapping("/disconnect")
 	@SendTo("/topic/crcontact")
 	public List<ContactEntity> disconnectWs(ChatMessageEntity messageEntity) throws Exception {
-		System.out.println("==============>/topic/crcontact");
+		log.info("==============>/topic/crcontact");
 		return chatMessageService.getAllContact();
 	}
 
@@ -90,8 +86,8 @@ public class ChatMessageController {
     // 發送到 /sendMsg 時會在這進行處理
     @MessageMapping("/sendMsg")
     public ChatMessageEntity sendMsg(ChatMessageEntity sendMessageEntity) {
-    	System.out.println("==========>sendMsg");
-    	System.out.println(sendMessageEntity);
+    	log.info("==========>sendMsg");
+    	log.info(sendMessageEntity!=null?sendMessageEntity.toString():"");
     	chatMessageService.sendToUser(sendMessageEntity);
     	ChatMessageEntity returnMessageEntity = new ChatMessageEntity(); 
 	    returnMessageEntity.setFromName(sendMessageEntity.getFromName());
@@ -110,7 +106,7 @@ public class ChatMessageController {
 	
 	@PostMapping("/chat/index")
 	public String websocketIndex(Model model,@ModelAttribute("user") UserReq userReq) {
-		System.out.println(userReq);
+		log.info(userReq!=null?userReq.toString():"");
 		model.addAttribute("userGender", userReq.getGender()!=null?userReq.getGender():"male");
 		model.addAttribute("userName", userReq.getUserName());
 		return "chatroom";

@@ -17,7 +17,16 @@ public class ChatMessageEntity {
 	private String to;
 	private String from;
 	private String gender;
-//	private Date time;
+	@Override
+	public String toString() {
+		return "ChatMessageEntity [toId=" + toId + ", toName=" + toName + ", fromId=" + fromId + ", fromName="
+				+ fromName + ", message=" + message + ", status=" + status + ", to=" + to + ", from=" + from
+				+ ", gender=" + gender + "]";
+	}
+	
+	
+	
+
 	
 	
 	
