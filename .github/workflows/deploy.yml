@@ -24,4 +24,11 @@ jobs:
         run: mvn test -B
 
       - name: Trigger Render Deploy
-        run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
+        env:
+          HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -n "$HOOK_URL" ]; then
+            curl -X POST "$HOOK_URL"
+          else
+            echo "RENDER_DEPLOY_HOOK_URL not set, skipping"
+          fi
