@@ -13,7 +13,7 @@
 	<script th:src="@{/js/sockjs-0.3.4.js}"></script>
 	<script th:src="@{/js/stomp.js}"></script>
 <link rel="stylesheet"
-	href="https://site-assets.fontawesome.com/releases/v6.2.1/css/all.css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" th:href="@{/css/chatroom.css}">
 </head>
@@ -27,7 +27,7 @@
 					<div id="sidebar" class="col-3 nopadding">
 						<div id="profile"><h4>Hi!&nbsp</h4><h4 id="userName" th:text="${userName}"></h4></div>
 						<div id="friendlistTitle">
-   							 <i class="fa-duotone fa-user" style="--fa-primary-color: #0DC8F4a1; --fa-secondary-color: #0DC8F4a1;"></i>
+   							 <i class="fa-solid fa-user" style="color: #0DC8F4a1;"></i>
 						&nbsp&nbspMember Online
                         </div>
 						<div id="friend">
@@ -42,7 +42,7 @@
 								<!--  <i class="fa-thin fa-right-from-bracket fa-beat fa-lg"></i>-->
 								<!-- <i class="fa-regular fa-robot"></i>Exit
 								<i class="fa-thin fa-right-from-bracket fa-lg"></i>-->
-								<i class="fa-regular fa-person-walking-luggage fa-lg"></i>&nbspExit
+								<i class="fa-solid fa-right-from-bracket fa-lg"></i>&nbspExit
 							</button>
 							</div>
 							<!--  <button id="sendPrivateBtn" type="button" class="btn btn-dark">
@@ -78,11 +78,10 @@
 							</div>
 							<div class="col-2" id="sender">
 								<div id="sendPrivateBtn" class="sendBtn">
-									<i style="position: absolute;" class="fas fa-paper-plane"></i>
+									<i style="position: absolute;" class="fa-solid fa-paper-plane"></i>
 								</div>
 								<div id="sendPublicBtn" class="sendBtn show">
-									<!--  <i class="fa-regular fa-message"></i>-->
-									<i class="fa-regular fa-paper-plane"></i>
+									<i class="fa-solid fa-paper-plane"></i>
 								</div>
 							</div>
 						</div>

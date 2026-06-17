@@ -72,11 +72,13 @@
 
  
 function login(userName) {
-	genUid = crypto.randomUUID();
+	genUid = generateUUID();
 	uid = genUid.replaceAll("-", "");
 	console.log("GEN UUID:"+uid);
 //    socket = new WebSocket('ws://localhost:8080/gs-guide-websocket')
-    socket = new WebSocket('ws://localhost:8080/chatroom-websocket')
+//	socket = new WebSocket('ws://localhost:8080/chatroom-websocket')
+    const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    socket = new WebSocket(wsProtocol + '//' + window.location.host + '/chatroom-websocket');
 //	let socket = new SockJS('ws://localhost:8080/gs-guide-websocket')
     stompClient = Stomp.over(socket);
     stompClient.connect({user:userName,uid:uid, gender:gender}, function () {
@@ -98,6 +100,17 @@ function login(userName) {
     });
 
 }
+function generateUUID() {
+	  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+	    return crypto.randomUUID();
+	  } else {
+	    // Fallback to a custom implementation or a library
+	    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+	      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+	      return v.toString(16);
+	    });
+	  }
+	}
 /* 顯示在線人員列表 */
 function displayContacts(contacts) {
   console.log("displayContacts ...");

@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  chatroom:
+    build: .
+    ports:
+      - "8086:8080"
+    restart: unless-stopped
